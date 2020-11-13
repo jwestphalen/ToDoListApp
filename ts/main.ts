@@ -88,6 +88,10 @@ function displayToDoItem(item:ToDoItem):void{
         let incompleteToDos = document.getElementById("incompleteItems");
         incompleteToDos.appendChild(itemDiv);
     }
+
+    //local storage (currently only stores 1 item at a time)
+    let itemString = JSON.stringify(item);
+    localStorage.setItem("item", itemString);
 }
 
 
