@@ -8,9 +8,6 @@
 </head>
 <body>
 
-
-
-    
     <h1>ToDo List</h1>
 
     <label for="title">Title</label>
@@ -22,17 +19,15 @@
     <input type="text" id="dueDate">
     <span>*</span>
     <br>
-    <input type="checkbox">
-    <label for="is-complete">Is Completed?</label>
+
+    <input id="checkbox" type="checkbox">
+    <label for="isComplete">Is Completed?</label>
     <br>
-    <input type="button" value="Add Item">
+    <input type="button" id="add" value="Add ToDo Item">
     
     
     <script src="https://unpkg.com/js-datepicker"></script>
-    <script>
-        const picker = datepicker("#dueDate");
-        picker.setMin(new Date()); //Today's date
-    </script>
+    <script src="js/main.js"></script>
     
     
 </body>
