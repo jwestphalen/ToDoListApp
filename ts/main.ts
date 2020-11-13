@@ -5,10 +5,6 @@ class ToDoItem{
     title:string;
     dueDate:Date;
     isCompleted:boolean;
-
-    /*constructor(desiredTitle:string){
-        this.title = desiredTitle;
-    }*/
 }
 
 let item = new ToDoItem();
@@ -51,6 +47,7 @@ function getToDoItem():ToDoItem{
     let isCompleted = getInput("checkbox");
     newItem.isCompleted = isCompleted.checked;
 
+
     return newItem;
 }
 
@@ -71,9 +68,11 @@ function displayToDoItem(item:ToDoItem):void{
     itemDate.innerText = item.dueDate.toString();
     
     let itemDiv = document.createElement("div");
+    itemDiv.classList.add("todo");
     if(item.isCompleted){
         itemDiv.classList.add("completed");
     }
+
 
     itemDiv.appendChild(itemText);
     itemDiv.appendChild(itemDate);

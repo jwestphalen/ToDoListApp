@@ -1,0 +1,28 @@
+#completeItems{
+    color:rgb(84, 240, 84);
+}
+
+#incompleteItems{
+    color:rgb(240, 142, 142);
+}
+
+.todo{
+    width: 20%;
+    box-sizing: border-box;
+    background-color: rgb(44, 44, 44);
+    padding: .5em;
+    border-radius: .75em;
+}
+
+.todo h3{
+    margin: 0px;
+}
+
+.todo p{
+    margin: 0px;
+}
+
+.completed{
+    opacity: 40%;
+    background-color: rgb(0, 41, 0);
+}
