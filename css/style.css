@@ -1,9 +1,13 @@
 #completeItems{
-    color:rgb(84, 240, 84);
+    color:green;
+    text-decoration: line-through;
+    border: .2em solid green;
 }
 
 #incompleteItems{
     color:rgb(240, 142, 142);
+    border: .2em solid red;
+    margin-bottom: 1em;
 }
 
 .todo{
@@ -12,6 +16,7 @@
     background-color: rgb(44, 44, 44);
     padding: .5em;
     border-radius: .75em;
+    cursor: pointer;
 }
 
 .todo h3{

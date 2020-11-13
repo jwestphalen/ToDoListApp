@@ -68,6 +68,9 @@ function displayToDoItem(item:ToDoItem):void{
     itemDate.innerText = item.dueDate.toString();
     
     let itemDiv = document.createElement("div");
+
+    itemDiv.onclick = markAsComplete;
+
     itemDiv.classList.add("todo");
     if(item.isCompleted){
         itemDiv.classList.add("completed");
@@ -87,5 +90,13 @@ function displayToDoItem(item:ToDoItem):void{
     }
 }
 
-// Task: Allow user to mark a ToDoItem as completed
+
+function markAsComplete(){
+    let itemDiv = <HTMLElement>this;
+    itemDiv.classList.add("completed");
+    itemDiv.style.color = "green";
+
+    let completedItems = document.getElementById("completeItems");
+    completedItems.appendChild(itemDiv);
+}
 // Task: Store ToDoItems in web storage
