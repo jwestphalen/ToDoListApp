@@ -29,9 +29,9 @@ function process(){
 }
 
 function isValid():boolean{
-    /*if(item.title == null){
+    if(item.title == null){
         return false;
-    }*/
+    }
     return true;
 }
 
@@ -64,7 +64,28 @@ function getInput(id):HTMLInputElement{
  * and completion status
  */
 function displayToDoItem(item:ToDoItem):void{
+    let itemText = document.createElement("h3");
+    itemText.innerText = item.title;
 
+    let itemDate = document.createElement("p");
+    itemDate.innerText = item.dueDate.toString();
+    
+    let itemDiv = document.createElement("div");
+    if(item.isCompleted){
+        itemDiv.classList.add("completed");
+    }
+
+    itemDiv.appendChild(itemText);
+    itemDiv.appendChild(itemDate);
+
+    if(item.isCompleted){
+        let completedToDos = document.getElementById("completeItems");
+        completedToDos.appendChild(itemDiv);
+    }
+    else{
+        let incompleteToDos = document.getElementById("incompleteItems");
+        incompleteToDos.appendChild(itemDiv);
+    }
 }
 
 // Task: Allow user to mark a ToDoItem as completed
