@@ -15,12 +15,21 @@ item.isCompleted = false;
 window.onload = function(){
     let addItem = document.getElementById("add");
     addItem.onclick = process;
+
+    // Load saved item
+    loadSavedItem();
+}
+
+function loadSavedItem(){
+    let item = getToDo(); //read from storage
+    displayToDoItem(item);
 }
 
 function process(){
     if(isValid()){
         let item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 
@@ -65,7 +74,12 @@ function displayToDoItem(item:ToDoItem):void{
     itemText.innerText = item.title;
 
     let itemDate = document.createElement("p");
-    itemDate.innerText = item.dueDate.toString();
+    console.log(item);
+    console.log("Due Date");
+    console.log(item.dueDate);
+    //itemDate.innerText = item.dueDate.toString();
+    let dueDate = new Date(item.dueDate.toString());
+    itemDate.innerText = dueDate.toDateString();
     
     let itemDiv = document.createElement("div");
 
@@ -88,10 +102,10 @@ function displayToDoItem(item:ToDoItem):void{
         let incompleteToDos = document.getElementById("incompleteItems");
         incompleteToDos.appendChild(itemDiv);
     }
-
+    /*
     //local storage (currently only stores 1 item at a time)
     let itemString = JSON.stringify(item);
-    localStorage.setItem("item", itemString);
+    localStorage.setItem("item", itemString);*/
 }
 
 
@@ -104,3 +118,23 @@ function markAsComplete(){
     completedItems.appendChild(itemDiv);
 }
 // Task: Store ToDoItems in web storage
+
+function saveToDo(item:ToDoItem):void{
+    //convert ToDoItem into JSON string
+    let itemString = JSON.stringify(item);
+    
+    //save string
+    localStorage.setItem(todokey, itemString);
+}
+
+const todokey = "todo";
+
+/**
+ * Get stored ToDo item or return null if none
+ * is found.
+ */
+function getToDo():ToDoItem{
+    let itemString = localStorage.getItem(todokey);
+    let item = JSON.parse(itemString);
+    return item;
+}
