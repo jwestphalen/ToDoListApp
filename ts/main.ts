@@ -1,3 +1,4 @@
+// @ts-ignore: ignore datepicker issue
 const picker = datepicker("#dueDate");
 picker.setMin(new Date()); //Today's date
 
@@ -7,25 +8,29 @@ class ToDoItem{
     isCompleted:boolean;
 }
 
-let item = new ToDoItem();
+/*let item = new ToDoItem();
 item.title = "testing";
 item.dueDate = new Date(2020, 6, 1);
-item.isCompleted = false;
+item.isCompleted = false;*/
 
 window.onload = function(){
     let addItem = document.getElementById("add");
-    addItem.onclick = process;
+    addItem.onclick = main;
 
     // Load saved item
-    loadSavedItem();
+    loadSavedItems();
 }
 
-function loadSavedItem(){
-    let item = getToDo(); //read from storage
-    displayToDoItem(item);
+function loadSavedItems(){
+    let itemArray = getToDoItems(); //read from storage
+
+    for(let i = 0; i < itemArray.length; i++){
+        let currItem = itemArray[i];
+        displayToDoItem(currItem);
+    }   
 }
 
-function process(){
+function main(){
     if(isValid()){
         let item = getToDoItem();
         displayToDoItem(item);
@@ -34,9 +39,6 @@ function process(){
 }
 
 function isValid():boolean{
-    if(item.title == null){
-        return false;
-    }
     return true;
 }
 
@@ -47,12 +49,15 @@ function isValid():boolean{
 function getToDoItem():ToDoItem{
     let newItem = new ToDoItem();
 
+    //title
     let titleInput = getInput("title");
     newItem.title = titleInput.value;
 
+    //due date
     let dueDateInput = getInput("dueDate");
     newItem.dueDate = new Date(dueDateInput.value);
 
+    //isCompleted
     let isCompleted = getInput("checkbox");
     newItem.isCompleted = isCompleted.checked;
 
@@ -74,9 +79,7 @@ function displayToDoItem(item:ToDoItem):void{
     itemText.innerText = item.title;
 
     let itemDate = document.createElement("p");
-    console.log(item);
-    console.log("Due Date");
-    console.log(item.dueDate);
+
     //itemDate.innerText = item.dueDate.toString();
     let dueDate = new Date(item.dueDate.toString());
     itemDate.innerText = dueDate.toDateString();
@@ -115,26 +118,32 @@ function markAsComplete(){
     itemDiv.style.color = "green";
 
     let completedItems = document.getElementById("completeItems");
+    console.log(completedItems);
     completedItems.appendChild(itemDiv);
 }
+
 // Task: Store ToDoItems in web storage
 
 function saveToDo(item:ToDoItem):void{
-    //convert ToDoItem into JSON string
-    let itemString = JSON.stringify(item);
-    
-    //save string
-    localStorage.setItem(todokey, itemString);
+    let currItems = getToDoItems();
+    if(currItems == null){ //No items found
+        currItems = new Array();
+    }
+
+    currItems.push(item); //Add new item to the curr item list
+
+    let currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todokey, currItemsString);
 }
 
 const todokey = "todo";
 
 /**
- * Get stored ToDo item or return null if none
- * is found.
+ * Get stored ToDo items or return null if none
+ * are found.
  */
-function getToDo():ToDoItem{
+function getToDoItems():ToDoItem[]{
     let itemString = localStorage.getItem(todokey);
-    let item = JSON.parse(itemString);
+    let item:ToDoItem[] = JSON.parse(itemString);
     return item;
 }

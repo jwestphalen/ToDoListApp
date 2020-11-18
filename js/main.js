@@ -5,30 +5,26 @@ var ToDoItem = (function () {
     }
     return ToDoItem;
 }());
-var item = new ToDoItem();
-item.title = "testing";
-item.dueDate = new Date(2020, 6, 1);
-item.isCompleted = false;
 window.onload = function () {
     var addItem = document.getElementById("add");
-    addItem.onclick = process;
-    loadSavedItem();
+    addItem.onclick = main;
+    loadSavedItems();
 };
-function loadSavedItem() {
-    var item = getToDo();
-    displayToDoItem(item);
+function loadSavedItems() {
+    var itemArray = getToDoItems();
+    for (var i = 0; i < itemArray.length; i++) {
+        var currItem = itemArray[i];
+        displayToDoItem(currItem);
+    }
 }
-function process() {
+function main() {
     if (isValid()) {
-        var item_1 = getToDoItem();
-        displayToDoItem(item_1);
-        saveToDo(item_1);
+        var item = getToDoItem();
+        displayToDoItem(item);
+        saveToDo(item);
     }
 }
 function isValid() {
-    if (item.title == null) {
-        return false;
-    }
     return true;
 }
 function getToDoItem() {
@@ -48,9 +44,6 @@ function displayToDoItem(item) {
     var itemText = document.createElement("h3");
     itemText.innerText = item.title;
     var itemDate = document.createElement("p");
-    console.log(item);
-    console.log("Due Date");
-    console.log(item.dueDate);
     var dueDate = new Date(item.dueDate.toString());
     itemDate.innerText = dueDate.toDateString();
     var itemDiv = document.createElement("div");
@@ -75,14 +68,20 @@ function markAsComplete() {
     itemDiv.classList.add("completed");
     itemDiv.style.color = "green";
     var completedItems = document.getElementById("completeItems");
+    console.log(completedItems);
     completedItems.appendChild(itemDiv);
 }
 function saveToDo(item) {
-    var itemString = JSON.stringify(item);
-    localStorage.setItem(todokey, itemString);
+    var currItems = getToDoItems();
+    if (currItems == null) {
+        currItems = new Array();
+    }
+    currItems.push(item);
+    var currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todokey, currItemsString);
 }
 var todokey = "todo";
-function getToDo() {
+function getToDoItems() {
     var itemString = localStorage.getItem(todokey);
     var item = JSON.parse(itemString);
     return item;
