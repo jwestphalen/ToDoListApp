@@ -2,12 +2,14 @@
     color:green;
     text-decoration: line-through;
     border: .2em solid green;
+    max-width: 800px;
 }
 
 #incompleteItems{
     color:rgb(240, 142, 142);
     border: .2em solid red;
     margin-bottom: 1em;
+    max-width: 800px;
 }
 
 .todo{
@@ -38,4 +40,30 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+#completeItems{
+    background-color: rgba(17, 110, 17, 0.493);
+}
+
+#incompleteItems{
+    background-color: rgba(110, 17, 17, 0.493);
+}
+
+#completeTitle,
+#incompleteTitle{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+#startTitle{
+    color: rgb(236, 134, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: blue;
+    max-width: 150px;
+    
+}
+
+#webBackground{
+    background-color: rgba(0, 1, 68, 0.589);
+    color: white;
 }

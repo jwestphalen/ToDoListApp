@@ -8,11 +8,6 @@ class ToDoItem{
     isCompleted:boolean;
 }
 
-/*let item = new ToDoItem();
-item.title = "testing";
-item.dueDate = new Date(2020, 6, 1);
-item.isCompleted = false;*/
-
 window.onload = function(){
     let addItem = document.getElementById("add");
     addItem.onclick = main;
